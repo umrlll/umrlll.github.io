@@ -6,7 +6,7 @@
   <link href="https://umrlll.github.io/atom.xml" rel="self"/>
   
   <link href="https://umrlll.github.io/"/>
-  <updated>2022-06-27T13:19:19.122Z</updated>
+  <updated>2022-06-27T14:07:10.069Z</updated>
   <id>https://umrlll.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Aurora主题美化</title>
+    <link href="https://umrlll.github.io/post/Aurora%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/"/>
+    <id>https://umrlll.github.io/post/Aurora%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/</id>
+    <published>2022-06-27T13:55:58.000Z</published>
+    <updated>2022-06-27T14:07:10.069Z</updated>
+    
+    <content type="html"><![CDATA[<p>Aurora主题美化，鼠标移动特效</p><span id="more"></span><h1 id="1-js代码"><a href="#1-js代码" class="headerlink" title="1.js代码"></a>1.js代码</h1><p>路径为：node_modules&#x2F;hexo-theme-aurora&#x2F;source&#x2F;static&#x2F;js&#x2F;</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">(function fairyDustCursor() &#123;    var possibleColors &#x3D; [&quot;#D61C59&quot;, &quot;#E7D84B&quot;, &quot;#1B8798&quot;]  var width &#x3D; window.innerWidth;  var height &#x3D; window.innerHeight;  var cursor &#x3D; &#123;x: width&#x2F;2, y: width&#x2F;2&#125;;  var particles &#x3D; [];    function init() &#123;    bindEvents();    loop();  &#125;    &#x2F;&#x2F; Bind events that are needed  function bindEvents() &#123;    document.addEventListener(&#39;mousemove&#39;, onMouseMove);    document.addEventListener(&#39;touchmove&#39;, onTouchMove);    document.addEventListener(&#39;touchstart&#39;, onTouchMove);        window.addEventListener(&#39;resize&#39;, onWindowResize);  &#125;    function onWindowResize(e) &#123;    width &#x3D; window.innerWidth;    height &#x3D; window.innerHeight;  &#125;    function onTouchMove(e) &#123;    if( e.touches.length &gt; 0 ) &#123;      for( var i &#x3D; 0; i &lt; e.touches.length; i++ ) &#123;        addParticle( e.touches[i].clientX, e.touches[i].clientY, possibleColors[Math.floor(Math.random()*possibleColors.length)]);      &#125;    &#125;  &#125;    function onMouseMove(e) &#123;        cursor.x &#x3D; e.clientX;    cursor.y &#x3D; e.clientY;        addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);  &#125;    function addParticle(x, y, color) &#123;    var particle &#x3D; new Particle();    particle.init(x, y, color);    particles.push(particle);  &#125;    function updateParticles() &#123;        for( var i &#x3D; 0; i &lt; particles.length; i++ ) &#123;      particles[i].update();    &#125;        for( var i &#x3D; particles.length -1; i &gt;&#x3D; 0; i-- ) &#123;      if( particles[i].lifeSpan &lt; 0 ) &#123;        particles[i].die();        particles.splice(i, 1);      &#125;    &#125;      &#125;    function loop() &#123;    requestAnimationFrame(loop);    updateParticles();  &#125;    function Particle() &#123;    this.character &#x3D; &quot;*&quot;;    this.lifeSpan &#x3D; 120; &#x2F;&#x2F;ms    this.initialStyles &#x3D;&#123;      &quot;position&quot;: &quot;fixed&quot;,      &quot;top&quot;: &quot;0&quot;, &#x2F;&#x2F;必须加      &quot;display&quot;: &quot;block&quot;,      &quot;pointerEvents&quot;: &quot;none&quot;,      &quot;z-index&quot;: &quot;10000000&quot;,      &quot;fontSize&quot;: &quot;20px&quot;,      &quot;will-change&quot;: &quot;transform&quot;    &#125;;    this.init &#x3D; function(x, y, color) &#123;      this.velocity &#x3D; &#123;        x:  (Math.random() &lt; 0.5 ? -1 : 1) * (Math.random() &#x2F; 2),        y: 1      &#125;;            this.position &#x3D; &#123;x: x - 10, y: y - 20&#125;;      this.initialStyles.color &#x3D; color;      console.log(color);      this.element &#x3D; document.createElement(&#39;span&#39;);      this.element.innerHTML &#x3D; this.character;      applyProperties(this.element, this.initialStyles);      this.update();            document.body.appendChild(this.element);    &#125;;        this.update &#x3D; function() &#123;      this.position.x +&#x3D; this.velocity.x;      this.position.y +&#x3D; this.velocity.y;      this.lifeSpan--;            this.element.style.transform &#x3D; &quot;translate3d(&quot; + this.position.x + &quot;px,&quot; + this.position.y + &quot;px,0) scale(&quot; + (this.lifeSpan &#x2F; 120) + &quot;)&quot;;    &#125;        this.die &#x3D; function() &#123;      this.element.parentNode.removeChild(this.element);    &#125;      &#125;    function applyProperties( target, properties ) &#123;    for( var key in properties ) &#123;      target.style[ key ] &#x3D; properties[ key ];    &#125;  &#125;    init();&#125;)();</code></pre><h1 id="2-引用js文件"><a href="#2-引用js文件" class="headerlink" title="2.引用js文件"></a>2.引用js文件</h1><p>路径文件：node_modules&#x2F;hexo-theme-aurora&#x2F;layout&#x2F;index.ejs </p><p>放在在”<body></body>“中</p><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&#123;% if theme.sakura.enable %&#125;&lt;script async src&#x3D;&quot;&#x2F;static&#x2F;js&#x2F;（前面js代码文件的名字）.js&quot;&gt;&lt;&#x2F;script&gt; &#123;% endif %&#125;</code></pre><h1 id="3-开启配置"><a href="#3-开启配置" class="headerlink" title="3.开启配置"></a>3.开启配置</h1><p>在 _config.aurora.yml 文件中添加</p><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">sakura:  enable: true</code></pre><p><img src="/post/Aurora%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/tu1.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Aurora主题美化，鼠标移动特效&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://umrlll.github.io/categories/hexo/"/>
+    
+    
+    <category term="Aurora" scheme="https://umrlll.github.io/tags/Aurora/"/>
+    
+    <category term="美化" scheme="https://umrlll.github.io/tags/%E7%BE%8E%E5%8C%96/"/>
+    
+    <category term="鼠标" scheme="https://umrlll.github.io/tags/%E9%BC%A0%E6%A0%87/"/>
+    
+  </entry>
   
   <entry>
     <title>多版本JDK安装环境配置</title>
