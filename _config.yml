@@ -116,10 +116,10 @@ deploy:
   - type: git
     repository: git@github.com:umrlll/umrlll.github.io.git
     branch: master
-  # - type: cos-cdn
-  #   cloud: tencent
-  #   appId: 1312627777
-  #   secretId: AKIDDG3buxlLkvt52i9MK1SccZHlHYYIwSVM
-  #   secredKey: A5mDOJxLSJ1UhfOr67tPgiU1HI3ZooX0
-  #   bucket: star-blog-1312627777 
-  #   region: as shanghai
+  # - type: 
+  #   cloud: 
+  #   appId: 
+  #   secretId: 
+  #   secredKey: 
+  #   bucket: 
+  #   region: 
