@@ -61,7 +61,7 @@ npm.cmd run config:example -- --write
 
 ### 2.1 源码提交现状
 
-站点真实配置此前只存在于工作区（已提交的 `_config.yml` 曾长期是 Hexo 默认模板：`title: Hexo`、`author: John Doe`、`theme: aurora`）。已完成一轮**本地**提交，尚未推送：
+站点真实配置此前只存在于工作区（已提交的 `_config.yml` 曾长期是 Hexo 默认模板：`title: Hexo`、`author: John Doe`、`theme: aurora`）。首次结构整理共 6 个提交，已推送到 `origin/hexo`：
 
 | 提交 | 内容 |
 |---|---|
@@ -69,6 +69,10 @@ npm.cmd run config:example -- --write
 | `5dee57e` | 文章按分类重组到子目录并改名（`source/`，含 29 项重命名） |
 | `55cbba8` | 提交真实站点配置：主题与永久链接（`_config.yml`） |
 | `b2cd5d5` | 合并远端 `origin/hexo`（含网页端清空密钥的提交 `f02e9cc`） |
+| `2435b8d` | 更正文档：记录提交现状与剩余项 |
+| `d045e8b` | 清理未启用主题：停止跟踪 `_config.aurora.yml`、移除失效的子模块条目、提交 `_config.landscape.yml` 删除 |
+
+推送为快进（`f02e9cc..d045e8b`），未使用强制推送；`master`（Pages 产物）未被本次操作改动。
 
 合并时 `_config.yml` 的 deploy 段冲突，取本地版本：两侧写的都是空的注释占位符，取任一侧等价。
 
