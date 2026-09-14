@@ -6,3 +6,15 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+# Main _config.yml is versioned; never put credentials in it.
+# Local theme config is untracked; frontend-injected values are still public.
+# config/butterfly.example.yml is the credential-free recovery template.
+_config.aurora.yml
+_config.Butterfly.yml
+_config.butterfly.yml
+_config.local.yml
+.cache/
+# Restored and verified using config/theme-lock.json; not a nested source repo.
+/themes/Butterfly/
+# Interrupted theme setup can leave a temporary clone behind.
+/themes/.theme-setup-*/
