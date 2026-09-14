@@ -177,11 +177,15 @@ npm.cmd run deploy -- --confirm
 
 部署入口先重新构建并通过全部检查，才调用已有 Hexo Git 部署器；没有 `--confirm` 会立即失败。已有部署器仍按 `_config.yml` 向 GitHub `master` 推送（插件自身可能使用强制推送），不是推源码 `hexo` 分支。请先确认目标和远端状态。
 
-本轮不改 SSH 配置、不添加新密钥、不执行远端推送，也未新增自动部署工作流。直接调用 `hexo deploy` 会绕过本工具的校验，日常请使用上面的 npm 入口。
+源码分支 `hexo` 已提交并推送到 `origin`；`master`（GitHub Pages 产物）仍只在明确 `--confirm` 时更新。推送源码用常规 `git push origin hexo`，**不要推送 `master`**。本工具不改 SSH 配置、不添加新密钥、不新增自动部署工作流。直接调用 `hexo deploy` 会绕过本工具的校验，日常请使用上面的 npm 入口。
 
 ## 7. 后续独立处理
 
-- 清理不再使用的主题/COS 插件、旧锁文件和空目录，确认没有依赖后再删除。
-- 审查并提交源码，先 fetch 对比远端 `hexo`；不能仅凭两个 SHA 不同判断谁领先。
-- 补齐两篇空文章，处理历史凭据与评论系统安全问题。
-- 如需 GitHub Actions，先验证全新依赖安装，再单独确认部署权限和工作流。
+- **源码推送**：后续每次推送前先 `git fetch` 比较 `hexo...origin/hexo`，不要仅凭两个 SHA 不同判断谁领先。
+- **依赖清理**：`hexo-theme-aurora`、`hexo-theme-landscape`、两个 COS 部署插件仍在 `package.json` 且都未使用。**删除依赖必须同时重写 `package-lock.json`**，否则 `npm ci` 会因 package.json 与锁文件不同步而直接失败；而 npm 11 处理这个 `lockfileVersion: 1` 的旧锁时会整体升级格式。这是需要联网、单独提交并重新验证的改动，不要只改 `package.json`。
+- **凭据轮换**：腾讯云那对密钥仍留在历史 `b4d3348` 中，`git commit` 无法抹除，只能去控制台轮换或作废。
+- **评论系统**：Gitalk 的 client secret 会进入公开 HTML，这是该方案本身的性质；如需更换，先改本机被忽略的主题配置再验证。
+- **两篇空文章**：`C#基础`、`运算符` 仍是空正文，补完后从 `config/validation.json` 移除对应例外。
+- **GitHub Actions**：如需要，先验证全新依赖安装，再单独确认部署权限与工作流。
+
+已处理：`_config.aurora.yml` 停止跟踪（含真实 Gitalk 凭据，且 Aurora 未启用）；`_config.landscape.yml` 的删除已提交；`themes/landfarz` 这个没有 `.gitmodules` 的失效子模块条目已从索引移除。
