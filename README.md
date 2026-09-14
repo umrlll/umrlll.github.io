@@ -59,20 +59,31 @@ npm.cmd run config:example -- --write
 
 另外，旧 `_config.aurora.yml` 仍是已跟踪文件，历史提交也未清理。`.gitignore` 不会取消既有跟踪或清除历史。当前工作区含多项先前改动，**不要直接 `git add -A` 全量提交**；源码提交、历史凭据处置需另行审查。
 
-### 2.1 当前 git 现状与风险
+### 2.1 源码提交现状
 
-| 项目 | 状态 |
+站点真实配置此前只存在于工作区（已提交的 `_config.yml` 曾长期是 Hexo 默认模板：`title: Hexo`、`author: John Doe`、`theme: aurora`）。已完成一轮**本地**提交，尚未推送：
+
+| 提交 | 内容 |
 |---|---|
-| 本地 `hexo` | `b4d3348`，领先 `origin/hexo` **0** 个、落后 **1** 个提交 |
-| 远端新提交 | `f02e9cc "Create _config.yml"`：只在网页端把 `_config.yml` 的腾讯云密钥清空 |
-| 已提交的 `_config.yml` | 仍是默认模板：`title: Hexo`、`author: John Doe`、`theme: aurora`、`permalink: /post/:title/` |
-| 工作区 `_config.yml` | 真实站点配置：`星桜笔记`、`theme: Butterfly`、`permalink: /post/:year/:month/:urlname/`，密钥字段为空 |
+| `b708f48` | 构建校验工具与维护文档（`tools/`、`config/`、`README.md`、`.node-version`、`package.json`、`.gitignore`、`scaffolds/`） |
+| `5dee57e` | 文章按分类重组到子目录并改名（`source/`，含 29 项重命名） |
+| `55cbba8` | 提交真实站点配置：主题与永久链接（`_config.yml`） |
+| `b2cd5d5` | 合并远端 `origin/hexo`（含网页端清空密钥的提交 `f02e9cc`） |
 
-**站点真实配置从未提交过，只存在于工作区。** 这是目前最大的单点风险：该文件一旦丢失，站点无法按现有 URL 重建。工作区还有 13 项修改、43 项删除（文章搬进子目录）和 11 组未跟踪内容（含 `tools/`、`config/`、`README.md`、`.node-version`）均未提交。
+合并时 `_config.yml` 的 deploy 段冲突，取本地版本：两侧写的都是空的注释占位符，取任一侧等价。
 
-因此源码提交的正确顺序是：**先提交工作区**（把真实 `_config.yml` 纳入版本）→ **再合并 `origin/hexo`**（会在该文件 deploy 段冲突，两侧都已清空密钥，取任一侧即可）→ 最后才考虑推送。不要先 `git pull`：工作区有未提交修改，要么被拒绝，要么直接覆盖真实配置。
+**历史里的凭据删不掉**：`b4d3348` 中仍能找到那对腾讯云密钥。`git commit` 无法从历史抹除，要真正止损只能去控制台轮换或作废。
 
-提交时按范围分批，避免把 IDE 文件混入：工具与文档（`tools/ config/ README.md .node-version package.json .gitignore scaffolds/`）、内容重组（`source/`）、站点配置（`_config.yml`）。`.idea/` 的改动建议单独决定或忽略。
+仍未提交，需要单独决定：
+
+| 文件 | 说明 |
+|---|---|
+| `_config.aurora.yml` | 已跟踪且含真实 Gitalk 凭据；直接提交新版本会再写入一份，建议连同停用主题一起清理 |
+| `_config.landscape.yml` | 已删除但未提交（Landscape 未启用） |
+| `package-lock.json` | 既有修改，与本次改动无关；将来升级锁文件时一并处理 |
+| `.idea/*` | IDE 本地文件，建议保持不提交 |
+
+后续提交源码的规则：用精确路径分批暂存（**不要 `git add -A`**）→ 扫描暂存 diff 的**新增行**是否含非空凭据字段（只看新增行，否则会误报历史删除行）→ 与 `npm run verify` 一起通过 → 最后才决定是否推送。
 
 ## 3. 新建与发布文章
 
