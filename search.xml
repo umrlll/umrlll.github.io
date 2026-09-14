@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>C#基础</title>
+      <link href="//post/2026/09/c-ji-chu/"/>
+      <url>//post/2026/09/c-ji-chu/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> C# </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>运算符</title>
       <link href="//post/2022/07/yun-suan-fu/"/>
       <url>//post/2022/07/yun-suan-fu/</url>
@@ -268,31 +293,6 @@
             <tag> 美化 </tag>
             
             <tag> 鼠标 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>C#基础</title>
-      <link href="//post/2022/06/c-ji-chu/"/>
-      <url>//post/2022/06/c-ji-chu/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> C# </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C# </tag>
             
         </tags>
       
