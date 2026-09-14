@@ -57,6 +57,8 @@ npm.cmd run config:example -- --write
 
 注意：Gitalk 会把所配置的 client secret 放入公开 HTML。环境变量或 `.gitignore` 不能保护已经注入前端的值；本工具不会测试 OAuth 权限或轮换凭据。
 
+`gitalk` 段**只有** `client_id`、`client_secret`、`repo`、`owner`、`admin`、`option` 六个键会被 `gitalk.pug` 读取（见主题 `layout/includes/third-party/comments/gitalk.pug`）。Gitalk 自身的选项（`language`、`distractionFreeMode`、`proxy`、`enableHotKey` 等）**必须写在 `option` 下**，写在外面会被静默忽略——写成对象（例如 `local_search: {enable: true}`）更会渲染出 `[object Object]`。每页 issue 由模板按 `md5(page.path)` 生成，所以**不要设置 `id`**（会覆盖它，让所有页面共用一个 issue）。评论系统总开关是 `comments.use: Gitalk`；侧栏“最新评论”由顶层 `newest_comments.enable` 控制，都与 `gitalk` 段无关。
+
 另外，旧 `_config.aurora.yml` 仍是已跟踪文件，历史提交也未清理。`.gitignore` 不会取消既有跟踪或清除历史。当前工作区含多项先前改动，**不要直接 `git add -A` 全量提交**；源码提交、历史凭据处置需另行审查。
 
 ### 2.1 源码提交现状

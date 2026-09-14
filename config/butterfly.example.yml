@@ -143,19 +143,15 @@ disqusjs:
 livere:
   uid: null
 gitalk:
-  enable: true
   owner: umrlll
   admin:
     - umrlll
   repo: blog-comments
-  autoExpand: true
   client_id: ''
   client_secret: ''
-  id: uid
-  language: zh-CN
-  distractionFreeMode: true
-  recentComment: true
-  proxy: ''
+  option:
+    language: zh-CN
+    distractionFreeMode: true
 valine:
   appId: ''
   appKey: ''
