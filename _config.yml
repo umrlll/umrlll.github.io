@@ -3,20 +3,21 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: zh-Hans
+title: 星桜笔记
+subtitle: Star's Note
+description: 学习Java中
+keywords: Java  学习
+author:  星桜
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://umrlll.github.io/
 root: /
-permalink: /post/:title/
+permalink: /post/:year/:month/:urlname/
 permalink_defaults:
+  urlname: index
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks
@@ -31,7 +32,14 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
 
+search:
+  path: search.xml
+  field: post # post:文章范围、page:页面范围、all:覆盖所有
+  content: true # 内容是否包含每一篇文章的全部内容
+  template: ./node_modules/hexo-generator-search/templates/search.xml  # ./search.xml 指定定制的XML模板
+
 # Writing
+# 在new_post_name的:title.md前添加 springboot-vue-wx-project/ 新建文件将在这个文件夹下
 new_post_name: :title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
@@ -48,8 +56,8 @@ marked:
 relative_link: false
 future: true
 highlight:
-  enable: false
-  line_number: true
+  enable: true
+  line_number: false
   auto_detect: false
   tab_replace: ''
   wrap: true
@@ -57,7 +65,7 @@ highlight:
 prismjs:
   enable: true
   preprocess: false
-  line_number: true
+  line_number: false
   tab_replace: ''
 
 # Home page setting
@@ -108,7 +116,12 @@ feed:
   type: atom
   path: atom.xml
   limit: 20
-theme: aurora
+# Keep case identical to themes/Butterfly and _config.Butterfly.yml on Linux.
+theme: Butterfly
+
+permalink_pinyin:
+  enable: true
+  separator: '-' # default: '-'
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -116,10 +129,10 @@ deploy:
   - type: git
     repository: git@github.com:umrlll/umrlll.github.io.git
     branch: master
-  # - type: cos-cdn
-  #   cloud: tencent
-  #   appId: 1312627777
-  #   secretId: AKIDDG3buxlLkvt52i9MK1SccZHlHYYIwSVM
-  #   secredKey: A5mDOJxLSJ1UhfOr67tPgiU1HI3ZooX0
-  #   bucket: star-blog-1312627777 
-  #   region: as shanghai
+  # - type:
+  #   cloud:
+  #   appId:
+  #   secretId:
+  #   secredKey:
+  #   bucket:
+  #   region:
