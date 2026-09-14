@@ -1,5 +1,4 @@
 ---
-title: "tags"
-comments: false
-date: 2022-06-23 20:20:08
+title: 标签
+type: "tags"
 ---
